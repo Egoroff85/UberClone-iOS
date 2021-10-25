@@ -45,4 +45,8 @@ extension UIView {
     func centerX(inView view: UIView) {
         centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
+    
+    func centerY(inView view: UIView) {
+        centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+    }
 }
