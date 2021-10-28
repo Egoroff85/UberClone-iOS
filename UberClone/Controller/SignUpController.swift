@@ -98,13 +98,15 @@ class SignUpController: UIViewController {
         
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if let error = error {
-                print("Failed to register user: \(error)")
+                print("DEBUG: Failed to register user: \(error.localizedDescription)")
                 return
             }
             guard let uid = result?.user.uid else {return}
             let values = ["email": email, "fullname": fullname, "accountType": accountTypeIndex] as [String : Any]
             Database.database().reference().child("users").child(uid).updateChildValues(values) { error, ref in
-                print("Successfully registered user and saved data")
+                guard let controller = UIApplication.shared.keyWindow?.rootViewController as? HomeController else {return}
+                controller.configureUI()
+                self.dismiss(animated: true, completion: nil)
             }
         }
     }
