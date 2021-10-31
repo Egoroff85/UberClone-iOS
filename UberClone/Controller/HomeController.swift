@@ -134,7 +134,7 @@ extension HomeController: LocationInputViewDelegate {
             self.locationInputView.alpha = 0
         } completion: { _ in
             UIView.animate(withDuration: 0.3) {
-                self.inputActivationView.alpha = 0
+                self.inputActivationView.alpha = 1
             }
         }
     }
