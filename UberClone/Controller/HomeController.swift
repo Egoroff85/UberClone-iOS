@@ -28,6 +28,7 @@ class HomeController: UIViewController {
     private let mapView = MKMapView()
     private let locationManager = LocationHandler.shared.locationManager
     private let inputActivationView = LocationInputActivationView()
+    private let rideActionView = RideActionView()
     private let locationInputView = LocationInputView()
     private let tableView = UITableView()
     private var searchResults = [MKPlacemark]()
@@ -62,7 +63,7 @@ class HomeController: UIViewController {
             break
         case .dismissActionView:
             removeAnnotationsAndOverlays()
-            
+            mapView.showAnnotations(mapView.annotations, animated: true)
             UIView.animate(withDuration: 0.3) {
                 self.inputActivationView.alpha = 1
                 self.configureActionButton(config: .showMenu)
@@ -148,6 +149,8 @@ class HomeController: UIViewController {
     
     func configureUI() {
         configureMapView()
+        configureRideActionView()
+        
         view.addSubview(actionButton)
         actionButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor,
                             paddingTop: 16, paddingLeft: 20, width: 30, height: 30)
@@ -183,6 +186,11 @@ class HomeController: UIViewController {
                 self.tableView.frame.origin.y = self.locationInputViewHeight
             }
         }
+    }
+    
+    func configureRideActionView() {
+        view.addSubview(rideActionView)
+        rideActionView.frame = CGRect(x: 0, y: view.frame.height - 300, width: view.frame.width, height: 300)
     }
     
     func configureTableView() {
@@ -256,7 +264,7 @@ private extension HomeController {
         let directionRequest = MKDirections(request: request)
         directionRequest.calculate { response, error in
             guard let response = response else {return}
-            self.route = response.routes.first
+            self.route = response.routes[0]
             guard let polyline = self.route?.polyline else {return}
             self.mapView.addOverlay(polyline)
         }
@@ -290,7 +298,7 @@ extension HomeController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if let route = self.route {
             let polyline = route.polyline
-            let lineRenderer = MKPolygonRenderer(overlay: polyline)
+            let lineRenderer = MKPolylineRenderer(overlay: polyline)
             lineRenderer.strokeColor = .mainBlueTint
             lineRenderer.lineWidth = 4
             return lineRenderer
@@ -356,6 +364,8 @@ extension HomeController: UITableViewDelegate, UITableViewDataSource {
             annotation.coordinate = selectedPlacemark.coordinate
             self.mapView.addAnnotation(annotation)
             self.mapView.selectAnnotation(annotation, animated: true)
+            let annotations = self.mapView.annotations.filter({ !$0.isKind(of: DriverAnnotation.self)})
+            self.mapView.showAnnotations(annotations, animated: true)
         }
     }
 }
