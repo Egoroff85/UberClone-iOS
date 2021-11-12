@@ -79,7 +79,7 @@ class LoginController: UIViewController {
                 print("DEBUG: Failed to login user: \(error.localizedDescription)")
                 return
             }
-            guard let controller = UIApplication.shared.keyWindow?.rootViewController as? HomeController else {return}
+            guard let controller = UIApplication.shared.keyWindow?.rootViewController as? ContainerController else { return }
             controller.configure()
             self.dismiss(animated: true, completion: nil)
         }

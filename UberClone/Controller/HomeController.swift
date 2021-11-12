@@ -26,6 +26,10 @@ private enum AnnotationType: String {
     case destination
 }
 
+protocol HomeControllerDelegate: class {
+    func handleMenuToggle()
+}
+
 class HomeController: UIViewController {
     
     // MARK: - Properties
@@ -39,7 +43,10 @@ class HomeController: UIViewController {
     private var searchResults = [MKPlacemark]()
     private final let locationInputViewHeight: CGFloat = 200
     private final let rideActionViewHeight: CGFloat = 300
-    private var user: User? {
+    
+    weak var delegate: HomeControllerDelegate?
+    
+    var user: User? {
         didSet {
             locationInputView.user = user
             if user?.accountType == .passenger {
@@ -78,8 +85,8 @@ class HomeController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        checkIfUserIsLoggedIn()
         enableLocationServices()
+        configureUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -94,7 +101,7 @@ class HomeController: UIViewController {
     @objc func actionButtonPressed() {
         switch actionButtonConfig {
         case .showMenu:
-            break
+            delegate?.handleMenuToggle()
         case .dismissActionView:
             removeAnnotationsAndOverlays()
             mapView.showAnnotations(mapView.annotations, animated: true)
@@ -196,47 +203,8 @@ class HomeController: UIViewController {
             self.presentAlertController(withTitle: "Oops!", message: "The passenger has cancelled the ride")
         }
     }
-    
-    // MARK: - Shared API
-    
-    func fetchUserData() {
-        guard let currentUid = Auth.auth().currentUser?.uid else {return}
-        Service.shared.fetchUserData(uid: currentUid) { user in
-            self.user = user
-        }
-    }
-    
-    func checkIfUserIsLoggedIn() {
-        if Auth.auth().currentUser?.uid == nil {
-            print("DEBUG: User not logged in")
-            DispatchQueue.main.async {
-                let controller = UINavigationController(rootViewController: LoginController())
-                self.present(controller, animated: true, completion: nil)
-            }
-        } else {
-            print("DEBUG: User id is: \(Auth.auth().currentUser!.uid)")
-            configure()
-        }
-    }
-    
-    func signOut() {
-        do {
-            try Auth.auth().signOut()
-            DispatchQueue.main.async {
-                let controller = UINavigationController(rootViewController: LoginController())
-                self.present(controller, animated: true, completion: nil)
-            }
-        } catch let error {
-            print("DEBUG: error, \(error)")
-        }
-    }
-    
+
     // MARK: - Helpers
-    
-    func configure() {
-        configureUI()
-        fetchUserData()
-    }
     
     private func configureActionButton(config: ActionButtonConfiguration) {
         switch config {
