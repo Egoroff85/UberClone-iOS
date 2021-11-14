@@ -19,13 +19,6 @@ class LocationCell: UITableViewCell {
         }
     }
     
-    var type: LocationType? {
-        didSet {
-            titleLabel.text = type?.description
-            addressLabel.text = type?.subtitle
-        }
-    }
-    
     let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
@@ -48,14 +41,11 @@ class LocationCell: UITableViewCell {
         stack.axis = .vertical
         stack.distribution = .fillEqually
         stack.spacing = 4
-        
         addSubview(stack)
         stack.centerY(inView: self, leftAnchor: leftAnchor, paddingLeft: 12)
-        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
+    }    
 }

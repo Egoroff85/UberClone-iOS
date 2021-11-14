@@ -160,6 +160,7 @@ extension ContainerController: MenuControllerDelegate {
             case .settings:
                 guard let user = self.user else { return }
                 let controller = SettingsController(user: user)
+                controller.delegate = self
                 let nav = UINavigationController(rootViewController: controller)
                 self.present(nav, animated: true, completion: nil)
             case .logout:
@@ -171,5 +172,13 @@ extension ContainerController: MenuControllerDelegate {
                 self.present(alert, animated: true, completion: nil)
             }
         }
+    }
+}
+
+// MARK: - SettingsControllerProtocol
+
+extension ContainerController: SettingsControllerDelegate {
+    func updateUser(_ controller: SettingsController) {
+        self.user = controller.user
     }
 }
