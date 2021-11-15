@@ -133,6 +133,15 @@ class HomeController: UIViewController {
                 Service.shared.fetchUserData(uid: driverUid) { driver in
                     self.animateRideActionView(shouldShow: true, config: .tripAccepted, user: driver)
                 }
+            case .denied:
+                self.shouldPresentLoadingView(false)
+                self.presentAlertController(withTitle: "Oops", message: "It looks like we couldn't find you a driver. Please try again")
+                PassengerService.shared.deleteTrip { _, _ in
+                    self.centerMapOnUserLocation()
+                    self.configureActionButton(config: .showMenu)
+                    self.inputActivationView.alpha = 1
+                    self.removeAnnotationsAndOverlays()
+                }
             case .driverArrived:
                 self.rideActionView.config = .driverArrived
             case .inProgress:
