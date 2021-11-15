@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5C0153C5274062F100AB1C90 /* UserInfoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0153C4274062F100AB1C90 /* UserInfoHeader.swift */; };
 		5C0153C827406DEB00AB1C90 /* AddLocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0153C727406DEB00AB1C90 /* AddLocationController.swift */; };
+		5C0153CA27413D6600AB1C90 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0153C927413D6600AB1C90 /* CircularProgressView.swift */; };
 		5C1A890B27275F0B0017F0DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1A890A27275F0B0017F0DF /* AppDelegate.swift */; };
 		5C1A890D27275F0B0017F0DF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1A890C27275F0B0017F0DF /* SceneDelegate.swift */; };
 		5C1A891227275F0B0017F0DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C1A891027275F0B0017F0DF /* Main.storyboard */; };
@@ -41,6 +42,7 @@
 		20C9B55B1419DFF8826E75B8 /* Pods-UberClone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UberClone.release.xcconfig"; path = "Target Support Files/Pods-UberClone/Pods-UberClone.release.xcconfig"; sourceTree = "<group>"; };
 		5C0153C4274062F100AB1C90 /* UserInfoHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoHeader.swift; sourceTree = "<group>"; };
 		5C0153C727406DEB00AB1C90 /* AddLocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationController.swift; sourceTree = "<group>"; };
+		5C0153C927413D6600AB1C90 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		5C1A890727275F0B0017F0DF /* UberClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UberClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C1A890A27275F0B0017F0DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5C1A890C27275F0B0017F0DF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 				5CB2DEFB2732F365007C957D /* RideActionView.swift */,
 				5CC4A503273DD49000DC004A /* MenuHeader.swift */,
 				5C0153C4274062F100AB1C90 /* UserInfoHeader.swift */,
+				5C0153C927413D6600AB1C90 /* CircularProgressView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -344,6 +347,7 @@
 				5CB2DF232735FB97007C957D /* PickupController.swift in Sources */,
 				5C8F72AC2730857400B85FB5 /* DriverAnnotation.swift in Sources */,
 				5C1A890B27275F0B0017F0DF /* AppDelegate.swift in Sources */,
+				5C0153CA27413D6600AB1C90 /* CircularProgressView.swift in Sources */,
 				5C1A8924272760B00017F0DF /* LoginController.swift in Sources */,
 				5C0153C827406DEB00AB1C90 /* AddLocationController.swift in Sources */,
 				5C8F72A2272E2B9B00B85FB5 /* LocationCell.swift in Sources */,
