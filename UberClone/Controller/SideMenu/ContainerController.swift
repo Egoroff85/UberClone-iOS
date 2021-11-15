@@ -53,10 +53,7 @@ class ContainerController: UIViewController {
     func checkIfUserIsLoggedIn() {
         if Auth.auth().currentUser?.uid == nil {
             print("DEBUG: User not logged in")
-            DispatchQueue.main.async {
-                let controller = UINavigationController(rootViewController: LoginController())
-                self.present(controller, animated: true, completion: nil)
-            }
+            presentLoginController()
         } else {
             print("DEBUG: User id is: \(Auth.auth().currentUser!.uid)")
             configure()
@@ -73,16 +70,22 @@ class ContainerController: UIViewController {
     func signOut() {
         do {
             try Auth.auth().signOut()
-            DispatchQueue.main.async {
-                let controller = UINavigationController(rootViewController: LoginController())
-                self.present(controller, animated: true, completion: nil)
-            }
+            presentLoginController()
         } catch let error {
             print("DEBUG: error, \(error)")
         }
     }
     
     // MARK: - Helper Functions
+    
+    func presentLoginController() {
+        DispatchQueue.main.async {
+            let controller = UINavigationController(rootViewController: LoginController())
+            controller.isModalInPresentation = true
+            controller.modalPresentationStyle = .fullScreen
+            self.present(controller, animated: true, completion: nil)
+        }
+    }
     
     func configure() {
         view.backgroundColor = .backgroundColor

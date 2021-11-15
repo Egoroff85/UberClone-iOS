@@ -20,6 +20,7 @@ struct User {
     let uid: String
     var homeLocation: String?
     var workLocation: String?
+    var firstInitial: String { return String(fullname.prefix(1)) }
     
     init(uid: String, dictionary: [String: Any]) {
         self.uid = uid
